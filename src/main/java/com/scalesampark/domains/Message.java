@@ -1,9 +1,11 @@
 package com.scalesampark.domains;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class Message {
 
 	@Id
@@ -17,6 +19,8 @@ public class Message {
 	@Column
 	private String message;
 
+	@Column
+	private long messageTypeId;
 	/**
 	 * @return the messageId
 	 */

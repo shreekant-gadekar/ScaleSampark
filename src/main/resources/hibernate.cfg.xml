@@ -11,6 +11,12 @@
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.format_sql">true</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
+  
+<!--   Domain classes declaration -->
   <mapping class="com.scalesampark.domains.Employee"/>
+  <mapping class="com.scalesampark.domains.Message"/>
+  <mapping class="com.scalesampark.domains.MessageType"/>
+  <mapping class="com.scalesampark.domains.Participant"/>
+  
  </session-factory>
 </hibernate-configuration>

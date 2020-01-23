@@ -51,7 +51,6 @@
   		<artifactId>jersey-core</artifactId>
   		<version>1.19.4</version>
   	</dependency>
-  	
   	<!-- Hibernate Core 5.2.x -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -68,6 +67,12 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.3.4.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>5.4.10.Final</version>
+		</dependency>
         
         <!-- MySql-Connector -->
         <dependency>
