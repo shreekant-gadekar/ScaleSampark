@@ -18,8 +18,6 @@ public class Employee {
 	@Column
 	private String name;
 
-	public Employee() {}
-
 	/**
 	 * @return the employeeId
 	 */

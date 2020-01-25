@@ -13,7 +13,7 @@ public class MessageType {
 	@Column(name="id")
 	private long messageTypeId;
 	
-	@Column
+	@Column(name="message_type_name")
 	private String messageTypeName;
 
 	/**
