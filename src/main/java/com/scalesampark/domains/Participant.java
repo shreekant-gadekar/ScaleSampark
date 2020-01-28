@@ -17,7 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @DynamicUpdate
 public class Participant {
-
+private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="id")
