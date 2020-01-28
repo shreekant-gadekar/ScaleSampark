@@ -16,11 +16,11 @@ public class Message {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id")
-	private long messageId;
+	@Column(name="message_uuid")
+	private long messageUuid;
 	
-	@Column(name="participant_id")
-	private Long participantId;
+	@Column(name="participant_uuid")
+	private long participantUuid;
 	
 	@Column(name="message_type_id")
 	private Long messageTypeId;
@@ -32,20 +32,6 @@ public class Message {
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdOn;
-
-	/**
-	 * @return the messageId
-	 */
-	public long getMessageId() {
-		return messageId;
-	}
-
-	/**
-	 * @param messageId the messageId to set
-	 */
-	public void setMessageId(long messageId) {
-		this.messageId = messageId;
-	}
 
 	/**
 	 * @return the message
@@ -62,20 +48,6 @@ public class Message {
 	}
 
 	/**
-	 * @return the participantId
-	 */
-	public Long getParticipantId() {
-		return participantId;
-	}
-
-	/**
-	 * @param participantId the participantId to set
-	 */
-	public void setParticipantId(Long participantId) {
-		this.participantId = participantId;
-	}
-
-	/**
 	 * @return the messageTypeId
 	 */
 	public Long getMessageTypeId() {
@@ -89,5 +61,32 @@ public class Message {
 		this.messageTypeId = messageTypeId;
 	}
 
+	/**
+	 * @return the messageUuid
+	 */
+	public long getMessageUuid() {
+		return messageUuid;
+	}
+
+	/**
+	 * @param messageUuid the messageUuid to set
+	 */
+	public void setMessageUuid(long messageUuid) {
+		this.messageUuid = messageUuid;
+	}
+
+	/**
+	 * @return the participantUuid
+	 */
+	public long getParticipantUuid() {
+		return participantUuid;
+	}
+
+	/**
+	 * @param participantUuid the participantUuid to set
+	 */
+	public void setParticipantUuid(long participantUuid) {
+		this.participantUuid = participantUuid;
+	}
 	
 }

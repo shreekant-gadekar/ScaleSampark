@@ -39,8 +39,8 @@ public class MessageDao implements Dao<Message> {
 		ParticipantDao participantDao = new ParticipantDao();
 		Participant participant = participantDao.get(participantId);
 		Criteria crit = session.createCriteria(Message.class);
-		crit.add(Restrictions.ge("createdOn", participant.getLastUpdated()));
-		crit.add(Restrictions.ne("participantId", participant.getParticipantId()));
+		crit.add(Restrictions.ge("createdOn", participant.getLastSeen()));
+		crit.add(Restrictions.ne("participantUuid", participant.getParticipantUuid()));
 		List<Message> encryptedMessages = crit.list();
 		participantDao.update(participant);
 		List<Message> decryptdMessages = getDecryptedMessages(encryptedMessages);
@@ -73,11 +73,11 @@ public class MessageDao implements Dao<Message> {
 		Message message = new Message();
 		session = SessionUtil.getSession();
 		Transaction tx = session.beginTransaction();
-		ParticipantDao participantDao = new ParticipantDao();
+//		ParticipantDao participantDao = new ParticipantDao();
 		String encryptedMessage = null;
-		Participant participant = null;
+//		Participant participant = null;
 		try {
-			participant = participantDao.get(bean.getParticipantId());
+//			participant = participantDao.get(bean.getParticipantId());
 			String k = "Dqr12xyz12key123";
 			SecretKey key = new SecretKeySpec(k.getBytes(), "AES");
 			EncriptionDecryption encriptionDecryption = new EncriptionDecryption(key);
@@ -87,13 +87,13 @@ public class MessageDao implements Dao<Message> {
 		}
 		
 		message.setMessage(encryptedMessage);
-		message.setParticipantId(bean.getParticipantId());
+		message.setParticipantUuid(bean.getParticipantUuid());
 		message.setMessageTypeId(bean.getMessageTypeId());
 		session.save(message);
-		session.update(participant);
+//		session.update(participant);
 		tx.commit();
 		session.close();
-		return message.getMessageId();
+		return message.getMessageUuid();
 	}
 
 	@Override

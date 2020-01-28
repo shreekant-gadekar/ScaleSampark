@@ -1,6 +1,8 @@
 package com.scalesampark.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,9 +24,15 @@ public class MessagesService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		try {
-			return Response.status(Response.Status.OK).entity(dao.getAll()).build();
+			Map<String, Object> map = new HashMap<String, Object>(1);
+			map.put("messages", dao.getAll());
+			return Response.status(Response.Status.OK).entity(map).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			Map<String, Object> map1 = new HashMap<String, Object>(1);
+			map1.put("status","failure");
+			map1.put("code","400");
+			map1.put("message","Bad request");
+			return Response.status(Response.Status.BAD_REQUEST).entity(map1).build();
 		}
 	}
 	
@@ -34,9 +42,18 @@ public class MessagesService {
 	public Response save(Message message) {
 		try {
 			long id = dao.save(message);
-			return Response.status(Response.Status.CREATED).entity(id).build();
+			Map<String, Object> map1 = new HashMap<String, Object>(1);
+			map1.put("status","success");
+			map1.put("code","201");
+			map1.put("message","Message created succefully.");
+			map1.put("data",id);
+			return Response.status(Response.Status.CREATED).entity(map1).build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			Map<String, Object> map1 = new HashMap<String, Object>(1);
+			map1.put("status","failure");
+			map1.put("code","400");
+			map1.put("message","Bad request");
+			return Response.status(Response.Status.BAD_REQUEST).entity(map1).build();
 		}
 	}
 	
@@ -45,11 +62,17 @@ public class MessagesService {
 	@Path("/{id}")
 	public Response getAllUnseenMessagesByParticipant(@PathParam("id") long participantId) {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>(1);
 			List<Message> messages = dao.getAllUnseenMessagesByParticipant(participantId);
+			map.put("messages", messages);
 			if (messages.size() > 0) {
-				return Response.status(Response.Status.OK).entity(messages).build();
+				return Response.status(Response.Status.OK).entity(map).build();
 			} else {
-				return Response.status(Response.Status.NO_CONTENT).build();
+				Map<String, Object> map1 = new HashMap<String, Object>(1);
+				map1.put("status","failure");
+				map1.put("code","204");
+				map1.put("message","No Content");
+				return Response.status(Response.Status.NO_CONTENT).entity(map1).build();
 			}
 			
 		} catch (Exception e) {

@@ -1,16 +1,12 @@
 package com.scalesampark.domains;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,8 +16,8 @@ public class Participant {
 
 	@Id
 	@GeneratedValue
-	@Column(name="id")
-	private long participantId;
+	@Column(name="participant_uuid")
+	private long participantUuid;
 	
 	@Column(name="email")
 	private String email;
@@ -29,46 +25,22 @@ public class Participant {
 	@Column(name="nickname")
 	private String nickname;
 	
-	@Column(name="created_on")
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar createdOn;
-
-	@Column(name="last_updated")
+	@Column(name="last_seen")
 	@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar lastUpdated;
-	
-	public Participant(){}
+	private Calendar lastSeen;
+
 	/**
-	 * @param participantId
-	 * @param email
-	 * @param nickname
-	 * @param createdOn
-	 * @param lastUpdated
+	 * @return the participantUuid
 	 */
-	public Participant(long participantId, String email, String nickname, Calendar createdOn,
-			Calendar lastUpdated) {
-		super();
-		this.participantId = participantId;
-		this.email = email;
-		this.nickname = nickname;
-		this.createdOn = createdOn;
-		this.lastUpdated = lastUpdated;
+	public long getParticipantUuid() {
+		return participantUuid;
 	}
 
 	/**
-	 * @return the participantId
+	 * @param participantUuid the participantUuid to set
 	 */
-	public long getParticipantId() {
-		return participantId;
-	}
-
-	/**
-	 * @param participantId the participantId to set
-	 */
-	public void setParticipantId(long participantId) {
-		this.participantId = participantId;
+	public void setParticipantUuid(long participantUuid) {
+		this.participantUuid = participantUuid;
 	}
 
 	/**
@@ -98,28 +70,18 @@ public class Participant {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 	/**
-	 * @return the createdOn
+	 * @return the lastSeen
 	 */
-	public Calendar getCreatedOn() {
-		return createdOn;
+	public Calendar getLastSeen() {
+		return lastSeen;
 	}
+
 	/**
-	 * @param createdOn the createdOn to set
+	 * @param lastSeen the lastSeen to set
 	 */
-	public void setCreatedOn(Calendar createdOn) {
-		this.createdOn = createdOn;
-	}
-	/**
-	 * @return the lastUpdated
-	 */
-	public Calendar getLastUpdated() {
-		return lastUpdated;
-	}
-	/**
-	 * @param lastUpdated the lastUpdated to set
-	 */
-	public void setLastUpdated(Calendar lastUpdated) {
-		this.lastUpdated = lastUpdated;
+	public void setLastSeen(Calendar lastSeen) {
+		this.lastSeen = lastSeen;
 	}
 }
