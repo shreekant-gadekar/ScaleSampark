@@ -90,11 +90,15 @@ public class ParticipantDao implements Dao<Participant> {
 	public int delete(long id) {
 		Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
-        String hql = "delete from Participant where participantUuid = :id";
-        Query query = session.createQuery(hql);
+        String deleteParticipantMsgs = "delete from Message where participantUuid = :id";
+        Query query1 = session.createQuery(deleteParticipantMsgs);
+        query1.setLong("id",id);
+//        System.out.println(query1.executeUpdate() + " : Messages deleted related to participant");
+        String deleteParticipant = "delete from Participant where participantUuid = :id";
+        Query query = session.createQuery(deleteParticipant);
         query.setLong("id",id);
         int rowCount = query.executeUpdate();
-        System.out.println("Rows affected: " + rowCount);
+//        System.out.println("Rows affected: " + rowCount);
         tx.commit();
         session.close();
         return rowCount;

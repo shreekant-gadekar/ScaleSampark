@@ -17,7 +17,7 @@ public class Participant {
 	@Id
 	@GeneratedValue
 	@Column(name="participant_uuid")
-	private long participantUuid;
+	private Long participantUuid;
 	
 	@Column(name="email")
 	private String email;
@@ -28,20 +28,9 @@ public class Participant {
 	@Column(name="last_seen")
 	@UpdateTimestamp
 	private Calendar lastSeen;
-
-	/**
-	 * @return the participantUuid
-	 */
-	public long getParticipantUuid() {
-		return participantUuid;
-	}
-
-	/**
-	 * @param participantUuid the participantUuid to set
-	 */
-	public void setParticipantUuid(long participantUuid) {
-		this.participantUuid = participantUuid;
-	}
+	
+	@Column(name="last_seen_msg_id", columnDefinition="bigint(20) default 0")
+	private Long lastSeenMsgId = 0L;
 
 	/**
 	 * @return the email
@@ -83,5 +72,33 @@ public class Participant {
 	 */
 	public void setLastSeen(Calendar lastSeen) {
 		this.lastSeen = lastSeen;
+	}
+
+	/**
+	 * @return the lastSeenMsgId
+	 */
+	public Long getLastSeenMsgId() {
+		return lastSeenMsgId;
+	}
+
+	/**
+	 * @param lastSeenMsgId the lastSeenMsgId to set
+	 */
+	public void setLastSeenMsgId(Long lastSeenMsgId) {
+		this.lastSeenMsgId = lastSeenMsgId;
+	}
+
+	/**
+	 * @return the participantUuid
+	 */
+	public Long getParticipantUuid() {
+		return participantUuid;
+	}
+
+	/**
+	 * @param participantUuid the participantUuid to set
+	 */
+	public void setParticipantUuid(Long participantUuid) {
+		this.participantUuid = participantUuid;
 	}
 }

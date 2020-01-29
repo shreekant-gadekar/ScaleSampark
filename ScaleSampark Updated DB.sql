@@ -58,7 +58,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (87);
+INSERT INTO `hibernate_sequence` VALUES (100);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,7 @@ CREATE TABLE `message` (
   `message_uuid` bigint(20) NOT NULL AUTO_INCREMENT,
   `participant_uuid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`message_uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +85,6 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,'gn1F5KivEgfjHgK5TRdNZw==','2020-01-28 21:05:47',82,69),(1,'0KdMnax3nEHQELvXpwAP0Q==','2020-01-28 21:05:52',83,69),(1,'eax5gMMUHW+QL5GRcKnVoA==','2020-01-28 21:06:02',84,70),(1,'KaoFZOCe3BbdHW0j3gKetQ==','2020-01-28 21:06:19',85,70),(1,'PN/qF2WTQUMmlUaF7568Pg==','2020-01-28 21:06:28',86,69);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,31 +112,6 @@ LOCK TABLES `message_type` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `messagetype`
---
-
-DROP TABLE IF EXISTS `messagetype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `messagetype` (
-  `id` bigint(20) NOT NULL,
-  `messageTypeName` varchar(255) DEFAULT NULL,
-  `message_type_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `messagetype`
---
-
-LOCK TABLES `messagetype` WRITE;
-/*!40000 ALTER TABLE `messagetype` DISABLE KEYS */;
-INSERT INTO `messagetype` VALUES (47,NULL,'openmessage');
-/*!40000 ALTER TABLE `messagetype` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `participant`
 --
 
@@ -149,8 +123,9 @@ CREATE TABLE `participant` (
   `email` varchar(45) NOT NULL,
   `nickname` varchar(45) NOT NULL,
   `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_seen_msg_id` bigint(20) DEFAULT '0',
   PRIMARY KEY (`participant_uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +134,6 @@ CREATE TABLE `participant` (
 
 LOCK TABLES `participant` WRITE;
 /*!40000 ALTER TABLE `participant` DISABLE KEYS */;
-INSERT INTO `participant` VALUES (69,'shreekant.gadekar@gmail.com','Shree','2020-01-28 21:08:04'),(70,'amol_jadhav@gmail.com','Amol','2020-01-28 21:07:52'),(71,'kiran9076@gmail.com','Amol','2020-01-28 21:07:33');
 /*!40000 ALTER TABLE `participant` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -172,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-29  2:43:42
+-- Dump completed on 2020-01-30  0:33:16

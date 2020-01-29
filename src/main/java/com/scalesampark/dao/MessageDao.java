@@ -1,7 +1,9 @@
 package com.scalesampark.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -39,9 +41,15 @@ public class MessageDao implements Dao<Message> {
 		ParticipantDao participantDao = new ParticipantDao();
 		Participant participant = participantDao.get(participantId);
 		Criteria crit = session.createCriteria(Message.class);
-		crit.add(Restrictions.ge("createdOn", participant.getLastSeen()));
+		crit.add(Restrictions.gt("messageUuid", participant.getLastSeenMsgId()));
 		crit.add(Restrictions.ne("participantUuid", participant.getParticipantUuid()));
 		List<Message> encryptedMessages = crit.list();
+		Collections.sort(encryptedMessages);
+		Optional<Message> maxMessage = encryptedMessages.stream().max((o1,o2) -> o1.getMessageUuid().compareTo(o2.getMessageUuid()));
+		if (maxMessage.isPresent()) {
+			Message message = maxMessage.get();
+			participant.setLastSeenMsgId(message.getMessageUuid());
+		}
 		participantDao.update(participant);
 		List<Message> decryptdMessages = getDecryptedMessages(encryptedMessages);
 		session.close();
@@ -53,7 +61,6 @@ public class MessageDao implements Dao<Message> {
 			encryptedMessages.stream().forEach(msg -> {
 				Message message = msg;
 					String decryptedMessage = null;
-					System.out.println("encrypted msg" + msg.getMessage());
 					String k = "Dqr12xyz12key123";
 					SecretKey key = new SecretKeySpec(k.getBytes(), "AES");
 					try {
@@ -73,11 +80,11 @@ public class MessageDao implements Dao<Message> {
 		Message message = new Message();
 		session = SessionUtil.getSession();
 		Transaction tx = session.beginTransaction();
-//		ParticipantDao participantDao = new ParticipantDao();
+		ParticipantDao participantDao = new ParticipantDao();
 		String encryptedMessage = null;
-//		Participant participant = null;
+		Participant participant = null;
 		try {
-//			participant = participantDao.get(bean.getParticipantId());
+			participant = participantDao.get(bean.getParticipantUuid());
 			String k = "Dqr12xyz12key123";
 			SecretKey key = new SecretKeySpec(k.getBytes(), "AES");
 			EncriptionDecryption encriptionDecryption = new EncriptionDecryption(key);
@@ -90,7 +97,7 @@ public class MessageDao implements Dao<Message> {
 		message.setParticipantUuid(bean.getParticipantUuid());
 		message.setMessageTypeId(bean.getMessageTypeId());
 		session.save(message);
-//		session.update(participant);
+		session.update(participant);
 		tx.commit();
 		session.close();
 		return message.getMessageUuid();
